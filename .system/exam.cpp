@@ -1,6 +1,5 @@
 #include "exam.hpp"
 
-// ==> Store all possible exercices in a map
 std::map<int, exercice> exam::list_dir(void)
 {
     struct dirent *entry;
@@ -170,17 +169,16 @@ void exam::ask_param(void)
 }
 
 // CONSTRUCTOR/OPERATOR/GETTER/SETTER
+
 exam::exam(void) : exam_grade(0), level(0), level_max(0), failures(0), student(false), backup(false), connexion_need(false)
 {
     reelmode = true;
     waiting_time = true;
     vip = 0;
     username = getenv("USER");
-    load_settings();
     system("curl https://user.grademe.fr/vip_list > .system/vip_list 2> /dev/null");
     std::ifstream vip_list(".system/vip_list");
     std::string line;
-    
     while (std::getline(vip_list, line))
     {
         if (line == username)
@@ -189,7 +187,6 @@ exam::exam(void) : exam_grade(0), level(0), level_max(0), failures(0), student(f
             break;
         }
     }
-    changex = 0;
     system("rm .system/vip_list");
 }
 
